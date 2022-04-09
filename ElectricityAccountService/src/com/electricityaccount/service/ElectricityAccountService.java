@@ -1,4 +1,4 @@
-package com.ElectricityAccount.service;
+package com.electricityaccount.service;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
