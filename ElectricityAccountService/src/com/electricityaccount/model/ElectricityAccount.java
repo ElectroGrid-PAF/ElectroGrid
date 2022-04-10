@@ -1,5 +1,12 @@
 package com.electricityaccount.model;
 
+/**
+ * ElectricityAccount is the model class for ElectricityAccount entity
+ * 
+ * @author 	Gobisan, PAF_Y3.S1.WE.DS.04_113
+ * @version 1.0 Apr 2022
+ */
+
 public class ElectricityAccount {
 	private int eacc_id;
 	private String eacc_name;

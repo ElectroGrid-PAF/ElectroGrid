@@ -3,6 +3,13 @@ package com.electricityaccount.model;
 import java.sql.Connection;
 import java.util.Map;
 
+/**
+ * IElectricityAccount is the interface for ElectricityAccountDB logic
+ * 
+ * @author 	Gobisan, PAF_Y3.S1.WE.DS.04_113
+ * @version 1.0 Apr 2022
+ */
+
 public interface IElectricityAccount {
 	public Connection electricityAccountDBConnection();
 
