@@ -11,9 +11,9 @@ public class ElectricityAccount {
 	private int eacc_id;
 	private String eacc_name;
 	private String billing_address;
-	private String eacc_type;
-	private String eacc_purpose;
-	private String eacc_status;
+	private String con_type;
+	private String con_purpose;
+	private String con_status;
 	private double electrcity_supply;
 	private String premise;
 	
@@ -21,15 +21,15 @@ public class ElectricityAccount {
 		
 	}
 
-	public ElectricityAccount(int eacc_id, String eacc_name, String billing_address, String eacc_type,
-			String eacc_purpose, String eacc_status, double electrcity_supply, String premise) {
+	public ElectricityAccount(int eacc_id, String eacc_name, String billing_address, String con_type,
+			String con_purpose, String con_status, double electrcity_supply, String premise) {
 		super();
 		this.eacc_id = eacc_id;
 		this.eacc_name = eacc_name;
 		this.billing_address = billing_address;
-		this.eacc_type = eacc_type;
-		this.eacc_purpose = eacc_purpose;
-		this.eacc_status = eacc_status;
+		this.con_type = con_type;
+		this.con_purpose = con_purpose;
+		this.con_status = con_status;
 		this.electrcity_supply = electrcity_supply;
 		this.premise = premise;
 	}
@@ -58,28 +58,28 @@ public class ElectricityAccount {
 		this.billing_address = billing_address;
 	}
 
-	public String getEacc_type() {
-		return eacc_type;
+	public String getCon_type() {
+		return con_type;
 	}
 
-	public void setEacc_type(String eacc_type) {
-		this.eacc_type = eacc_type;
+	public void setCon_type(String con_type) {
+		this.con_type = con_type;
 	}
 
-	public String getEacc_purpose() {
-		return eacc_purpose;
+	public String getCon_purpose() {
+		return con_purpose;
 	}
 
-	public void setEacc_purpose(String eacc_purpose) {
-		this.eacc_purpose = eacc_purpose;
+	public void setCon_purpose(String con_purpose) {
+		this.con_purpose = con_purpose;
 	}
 
-	public String getEacc_status() {
-		return eacc_status;
+	public String getCon_status() {
+		return con_status;
 	}
 
-	public void setEacc_status(String eacc_status) {
-		this.eacc_status = eacc_status;
+	public void setCon_status(String con_status) {
+		this.con_status = con_status;
 	}
 
 	public double getElectrcity_supply() {
@@ -101,7 +101,7 @@ public class ElectricityAccount {
 	@Override
 	public String toString() {
 		return "ElectricityAccount [eacc_id=" + eacc_id + ", eacc_name=" + eacc_name + ", billing_address="
-				+ billing_address + ", eacc_type=" + eacc_type + ", eacc_purpose=" + eacc_purpose + ", eacc_status="
-				+ eacc_status + ", electrcity_supply=" + electrcity_supply + ", premise=" + premise + "]";
+				+ billing_address + ", con_type=" + con_type + ", con_purpose=" + con_purpose + ", con_status="
+				+ con_status + ", electrcity_supply=" + electrcity_supply + ", premise=" + premise + "]";
 	}
 }
