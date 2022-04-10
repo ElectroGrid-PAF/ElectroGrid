@@ -11,7 +11,7 @@ import com.sun.jersey.api.client.WebResource;
  */
 
 public class ElectrictyAccountClient {
-	private static String baseURI = "http://localhost:8080/ElectricityAccount/myService/hello";
+	private static String baseURI = "http://localhost:8080/ElectricityAccount/ElectricityAccountService/hello";
 
 	public static void main(String[] args) {
 		testGet();
