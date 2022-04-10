@@ -45,10 +45,10 @@ public class ElectricityAccountLogic implements IElectricityAccount{
 			// execute statement
 			preparedStmt.execute();
 			con.close();
-			output = "Inserted successfully"; 
+			output = "New record inserted successfully"; 
 			
 		} catch (Exception e) {
-			output = "Error while inserting"; 
+			output = "Error while inserting new record"; 
 			System.err.println(e.getMessage());
 		}
 		
