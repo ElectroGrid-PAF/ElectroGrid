@@ -1,9 +1,17 @@
 package com.electricityaccount.service;
 
+import java.util.Map;
+
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+
+import com.electricityaccount.model.ElectricityAccount;
+import com.electricityaccount.model.ElectricityAccountLogic;
+import com.electricityaccount.model.IElectricityAccount;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 /**
  * ElectricityAccountService class is the RESTful interface for ElectricityAccount resource
@@ -12,12 +20,21 @@ import javax.ws.rs.core.MediaType;
  * @version 1.0 Apr 2022
  */
 
-@Path("/hello")
+@Path("/ElectricityAccounts")
 public class ElectricityAccountService {
+
+	private IElectricityAccount iElectricityAccount = new ElectricityAccountLogic();
+
+	// Retrieve all electricuty acccounts
 	@GET
 	@Path("/")
-	@Produces(MediaType.TEXT_PLAIN)
+	@Produces(MediaType.APPLICATION_JSON)
 	public String hello() {
-		return "Hello";
+		
+		GsonBuilder gb = new GsonBuilder();
+		gb.setPrettyPrinting();
+
+		Gson gson = gb.create();
+		return gson.toJson(iElectricityAccount.getAllElectricityAccounts());
 	}
 }

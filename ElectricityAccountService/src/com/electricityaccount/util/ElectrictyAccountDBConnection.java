@@ -6,8 +6,8 @@ import java.sql.SQLException;
 
 public class ElectrictyAccountDBConnection {
 	private String jdbcURL = "jdbc:mysql://localhost:3306/ElectricityAccountDB?useSSL=false";
-	private String jdbcUsername =  "";
-	private String jdbcPassword = "";
+	private String jdbcUsername =  "root";
+	private String jdbcPassword = "gobisql123";
 
 	// get database connection
 	public Connection getConnection() {

@@ -8,86 +8,86 @@ package com.electricityaccount.model;
  */
 
 public class ElectricityAccount {
-	private int eacc_id;
-	private String eacc_name;
-	private String billing_address;
-	private String con_type;
-	private String con_purpose;
-	private String con_status;
-	private double electrcity_supply;
+	private int eaccID;
+	private String eaccName;
+	private String billingAddress;
+	private String conType;
+	private String conPurpose;
+	private String conStatus;
+	private String electrcitySupply;
 	private String premise;
-	
+
 	public ElectricityAccount() {
-		
+		// TODO Auto-generated constructor stub
 	}
 
-	public ElectricityAccount(int eacc_id, String eacc_name, String billing_address, String con_type,
-			String con_purpose, String con_status, double electrcity_supply, String premise) {
+	public ElectricityAccount(int eaccID, String eaccName, String billingAddress, String conType, String conPurpose,
+			String conStatus, String electrcitySupply, String premise) {
 		super();
-		this.eacc_id = eacc_id;
-		this.eacc_name = eacc_name;
-		this.billing_address = billing_address;
-		this.con_type = con_type;
-		this.con_purpose = con_purpose;
-		this.con_status = con_status;
-		this.electrcity_supply = electrcity_supply;
+		this.eaccID = eaccID;
+		this.eaccName = eaccName;
+		this.billingAddress = billingAddress;
+		this.conType = conType;
+		this.conPurpose = conPurpose;
+		this.conStatus = conStatus;
+		this.electrcitySupply = electrcitySupply;
 		this.premise = premise;
 	}
 
-	public int getEacc_id() {
-		return eacc_id;
+	public int getEaccID() {
+		return eaccID;
 	}
 
-	public void setEacc_id(int eacc_id) {
-		this.eacc_id = eacc_id;
+	public void setEaccID(int eaccID) {
+		this.eaccID = eaccID;
 	}
 
-	public String getEacc_name() {
-		return eacc_name;
+	public String getEaccName() {
+		return eaccName;
 	}
 
-	public void setEacc_name(String eacc_name) {
-		this.eacc_name = eacc_name;
+	public void setEaccName(String eaccName) {
+		this.eaccName = eaccName;
 	}
 
-	public String getBilling_address() {
-		return billing_address;
+	public String getBillingAddress() {
+		return billingAddress;
 	}
 
-	public void setBilling_address(String billing_address) {
-		this.billing_address = billing_address;
+	public void setBillingAddress(String billingAddress) {
+		this.billingAddress = billingAddress;
 	}
 
-	public String getCon_type() {
-		return con_type;
+	public String getConType() {
+		return conType;
 	}
 
-	public void setCon_type(String con_type) {
-		this.con_type = con_type;
+	public void setConType(String conType) {
+		this.conType = conType;
 	}
 
-	public String getCon_purpose() {
-		return con_purpose;
+	public String getConPurpose() {
+		return conPurpose;
 	}
 
-	public void setCon_purpose(String con_purpose) {
-		this.con_purpose = con_purpose;
+	public void setConPurpose(String conPurpose) {
+		this.conPurpose = conPurpose;
 	}
 
-	public String getCon_status() {
-		return con_status;
+	public String getConStatus() {
+		return conStatus;
 	}
 
-	public void setCon_status(String con_status) {
-		this.con_status = con_status;
+	public void setConStatus(String conStatus) {
+		this.conStatus = conStatus;
 	}
 
-	public double getElectrcity_supply() {
-		return electrcity_supply;
+	public String getElectrcitySupply() {
+		return electrcitySupply;
 	}
 
-	public void setElectrcity_supply(double electrcity_supply) {
-		this.electrcity_supply = electrcity_supply;
+	public void setElectrcitySupply(String electrcitySupply) {
+		this.electrcitySupply = electrcitySupply;
 	}
 
 	public String getPremise() {
@@ -100,8 +100,8 @@ public class ElectricityAccount {
 
 	@Override
 	public String toString() {
-		return "ElectricityAccount [eacc_id=" + eacc_id + ", eacc_name=" + eacc_name + ", billing_address="
-				+ billing_address + ", con_type=" + con_type + ", con_purpose=" + con_purpose + ", con_status="
-				+ con_status + ", electrcity_supply=" + electrcity_supply + ", premise=" + premise + "]";
+		return "ElectricityAccount [eaccID=" + eaccID + ", eaccName=" + eaccName + ", billingAddress=" + billingAddress
+				+ ", conType=" + conType + ", conPurpose=" + conPurpose + ", conStatus=" + conStatus
+				+ ", electrcitySupply=" + electrcitySupply + ", premise=" + premise + "]";
 	}
 }
