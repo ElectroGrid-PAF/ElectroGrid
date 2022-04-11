@@ -56,20 +56,20 @@ public class ElectricityAccountService {
 		return gson.toJson(iElectricityAccount.getElectricityAccountByID(eaccID));
 	}
 
-		// Retrieve electricity accounts with specific premise
-		@GET
-		@Path("premise/{pid}")
-		@Produces(MediaType.APPLICATION_JSON)
-		public String readElectricityAccountByPremise(@PathParam("pid") String pid) {
+	// Retrieve electricity accounts with specific premise
+	@GET
+	@Path("premise/{pid}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String readElectricityAccountByPremise(@PathParam("pid") String pid) {
 
-			GsonBuilder gb = new GsonBuilder();
-			gb.setPrettyPrinting();
+		GsonBuilder gb = new GsonBuilder();
+		gb.setPrettyPrinting();
 
-			Gson gson = gb.create();
-			return gson.toJson(iElectricityAccount.getElectricityAccountByPremise(pid));
-		}
-	
-	// Inert electricity account
+		Gson gson = gb.create();
+		return gson.toJson(iElectricityAccount.getElectricityAccountByPremise(pid));
+	}
+
+	// Insert electricity account
 	@POST
 	@Path("/")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -99,12 +99,12 @@ public class ElectricityAccountService {
 	@Produces(MediaType.TEXT_PLAIN)
 	public String deleteElectricityAccount(String eaccID) {
 
-		// Convert the input string to a JSON object
+		// Convert input string to a JSON object
 		JsonObject josnObj = new JsonParser().parse(eaccID).getAsJsonObject(); 
 
-		//Read the value from the element <itemID>
+		//Read value from the element eaccID
 		String id = josnObj.get("eaccID").toString(); 
-				
+
 		return iElectricityAccount.deleteElectricityAccount(Integer.parseInt(id));
 	}
 }
