@@ -4,12 +4,22 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+/**
+ * ElectrictyAccountDBConnection class is for initiating data base connection
+ * 
+ * @author 	Gobisan, PAF_Y3.S1.WE.DS.04_113
+ * @version 1.0 Apr 2022
+ */
+
 public class ElectrictyAccountDBConnection {
 	private String jdbcURL = "jdbc:mysql://localhost:3306/ElectricityAccountDB?useSSL=false";
 	private String jdbcUsername =  "root";
 	private String jdbcPassword = "gobisql123";
 
-	// get database connection
+	/**
+	 * 
+	 * @return connection
+	 */
 	public Connection getConnection() {
 		Connection connection = null;
 

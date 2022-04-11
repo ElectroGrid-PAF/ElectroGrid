@@ -59,6 +59,7 @@ public class ElectricityAccountLogic implements IElectricityAccount{
 	private static Statement statement = null;
 	private static ResultSet rs = null;
 
+	// Insert electricity account
 	@Override
 	public String insertElectricityAccount(ElectricityAccount eacc) {
 		String output = "";
@@ -106,6 +107,7 @@ public class ElectricityAccountLogic implements IElectricityAccount{
 		return output;
 	}
 
+	// Update electricity account
 	@Override
 	public String updateElectricityAccount(ElectricityAccount eacc) {
 		String output = "";
@@ -161,6 +163,7 @@ public class ElectricityAccountLogic implements IElectricityAccount{
 		return output;
 	}
 
+	// Delete electricity account
 	@Override
 	public String deleteElectricityAccount(int eaccID) {
 		String output = "";
@@ -205,6 +208,7 @@ public class ElectricityAccountLogic implements IElectricityAccount{
 		return output;
 	}
 
+	// Retrieve all electricity accounts
 	@Override
 	public Map<String, Object> getAllElectricityAccounts() {
 
@@ -275,6 +279,7 @@ public class ElectricityAccountLogic implements IElectricityAccount{
 		}
 	}
 
+	// Retrieve electricity account by electricity account id
 	@Override
 	public Map<String, Object> getElectricityAccountByID(int id) {
 		// Initialize Electricity account List
@@ -343,6 +348,7 @@ public class ElectricityAccountLogic implements IElectricityAccount{
 		}
 	}
 
+	// Retrieve all electricity account with specifc premise
 	@Override
 	public Map<String, Object> getElectricityAccountByPremise(String pid) {
 		// Create Error Message
