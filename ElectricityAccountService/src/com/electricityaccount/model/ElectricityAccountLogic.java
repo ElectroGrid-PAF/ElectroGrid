@@ -164,7 +164,7 @@ public class ElectricityAccountLogic implements IElectricityAccount{
 	@Override
 	public String deleteElectricityAccount(int eaccID) {
 		String output = "";
-		
+
 		Map<String, Object> result = getElectricityAccountByID(eaccID);
 
 		if (result.get("ElectricityAcccount") == null) {
@@ -277,6 +277,9 @@ public class ElectricityAccountLogic implements IElectricityAccount{
 
 	@Override
 	public Map<String, Object> getElectricityAccountByID(int id) {
+		// Initialize Electricity account List
+		List<ElectricityAccount> electricityAccountList = new ArrayList<>();
+				
 		// Create Error Message
 		ElectricityAccountError emsg = new ElectricityAccountError();
 
@@ -297,8 +300,7 @@ public class ElectricityAccountLogic implements IElectricityAccount{
 			rs = preparedStmt.executeQuery();
 
 			// iterate through the rows in the result set
-			if (rs.next()) {
-
+			while (rs.next()) {
 				ElectricityAccount electricityAccount = new ElectricityAccount();
 
 				electricityAccount.setEaccID(rs.getInt("eacc_id"));
@@ -310,8 +312,12 @@ public class ElectricityAccountLogic implements IElectricityAccount{
 				electricityAccount.setElectrcitySupply(rs.getString("electrcity_supply"));
 				electricityAccount.setPremise(rs.getString("premise"));
 
-				data.put("ElectricityAcccount", electricityAccount);
+				electricityAccountList.add(electricityAccount);
 			}
+
+			// return electricity account list
+
+			data.put("ElectricityAccount", electricityAccountList);
 			return data;
 
 		} catch (Exception e) {
@@ -338,9 +344,66 @@ public class ElectricityAccountLogic implements IElectricityAccount{
 	}
 
 	@Override
-	public Map<String, Object> getElectricityAccountByPremise(String productType) {
-		// TODO Auto-generated method stub
-		return null;
+	public Map<String, Object> getElectricityAccountByPremise(String pid) {
+		// Create Error Message
+		ElectricityAccountError emsg = new ElectricityAccountError();
+
+		// Initialize Data to return
+		Map<String, Object> data = new HashMap<>();
+
+		try {
+			connection = dbconnection.getConnection();
+
+			if (connection == null) {
+				emsg.setErrorMessage(DB_CONNECTION_ERROR_MSG);
+				data.put(DB_CONNECTION_ERROR_LBL, emsg);
+				return data;
+			}
+
+			preparedStmt = connection.prepareStatement(SELECT_ELECTRICITY_ACCOUNT_BY_PREMISE);
+			preparedStmt.setString(1, pid);
+			rs = preparedStmt.executeQuery();
+
+			// iterate through the rows in the result set
+			while(rs.next()) {
+
+				ElectricityAccount electricityAccount = new ElectricityAccount();
+
+				electricityAccount.setEaccID(rs.getInt("eacc_id"));
+				electricityAccount.setEaccName(rs.getString("eacc_name"));
+				electricityAccount.setBillingAddress(rs.getString("billing_address"));
+				electricityAccount.setConType(rs.getString("con_type"));
+				electricityAccount.setConPurpose(rs.getString("con_purpose"));
+				electricityAccount.setConStatus(rs.getString("con_status"));
+				electricityAccount.setElectrcitySupply(rs.getString("electrcity_supply"));
+				electricityAccount.setPremise(rs.getString("premise"));
+
+				data.put("ElectricityAcccount", electricityAccount);
+			}
+			
+			return data;
+
+		} catch (Exception e) {
+			log.log(Level.SEVERE, e.getMessage());
+
+			emsg.setErrorMessage(e.getMessage());
+			data.put("DBReadError", emsg);
+
+			return data;
+		} finally {
+
+			// Close statement and database connection
+			try {
+				if (statement != null) {
+					statement.close();
+				}
+				if (connection != null) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				log.log(Level.SEVERE, e.getMessage());
+			}
+		}
 	}
 
 }

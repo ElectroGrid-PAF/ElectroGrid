@@ -43,7 +43,7 @@ public class ElectricityAccountService {
 		return gson.toJson(iElectricityAccount.getAllElectricityAccounts());
 	}
 
-	// Retrieve specific electricity account
+	// Retrieve specific electricity account by ID
 	@GET
 	@Path("/{eaccID}")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -56,6 +56,20 @@ public class ElectricityAccountService {
 		return gson.toJson(iElectricityAccount.getElectricityAccountByID(eaccID));
 	}
 
+		// Retrieve electricity accounts with specific premise
+		@GET
+		@Path("premise/{pid}")
+		@Produces(MediaType.APPLICATION_JSON)
+		public String readElectricityAccountByPremise(@PathParam("pid") String pid) {
+
+			GsonBuilder gb = new GsonBuilder();
+			gb.setPrettyPrinting();
+
+			Gson gson = gb.create();
+			return gson.toJson(iElectricityAccount.getElectricityAccountByPremise(pid));
+		}
+	
+	// Inert electricity account
 	@POST
 	@Path("/")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -78,8 +92,7 @@ public class ElectricityAccountService {
 		return iElectricityAccount.updateElectricityAccount(eacc);
 	}
 
-
-	// Delete electricity account details
+	// Delete electricity account
 	@DELETE
 	@Path("/")
 	@Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
