@@ -25,7 +25,7 @@ public class ElectricityAccountService {
 
 	private IElectricityAccount iElectricityAccount = new ElectricityAccountLogic();
 
-	// Retrieve all electricuty acccounts
+	// Retrieve all electricity accounts
 	@GET
 	@Path("/")
 	@Produces(MediaType.APPLICATION_JSON)
