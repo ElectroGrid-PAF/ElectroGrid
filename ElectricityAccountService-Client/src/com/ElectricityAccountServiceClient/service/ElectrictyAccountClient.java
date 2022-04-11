@@ -18,14 +18,14 @@ import com.sun.jersey.api.client.WebResource;
  */
 
 
-@Path("/ElectricityAccounts")
+@Path("/Accounts")
 public class ElectrictyAccountClient {
-	private static String baseURI = "http://localhost:8080/ElectricityAccount/ElectricityAccountService/ElectricityAccounts";
+	private static String baseURI = "http://localhost:8080/ElectricityAccount/AccountService/Accounts";
 
 	// Retrieve all electricity accounts
 	@GET
 	@Path("/")
-	@Produces(MediaType.TEXT_HTML)
+	@Produces(MediaType.APPLICATION_JSON)
 	public String testGet() {
 		WebResource resource = getWebResource();
 		String output = resource.get(String.class);

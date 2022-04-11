@@ -21,7 +21,7 @@ public interface IElectricityAccount {
 
 	public Map<String, Object> getAllElectricityAccounts();
 
-	public Map<String, Object> getElectricityAccount();
+	public Map<String, Object> getElectricityAccountByID(int id);
 
 	public Map<String, Object> getElectricityAccountByPremise(String productType);
 }

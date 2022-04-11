@@ -18,7 +18,7 @@ public class ElectricityAccount {
 	private String premise;
 
 	public ElectricityAccount() {
-		// TODO Auto-generated constructor stub
+
 	}
 
 	public ElectricityAccount(int eaccID, String eaccName, String billingAddress, String conType, String conPurpose,

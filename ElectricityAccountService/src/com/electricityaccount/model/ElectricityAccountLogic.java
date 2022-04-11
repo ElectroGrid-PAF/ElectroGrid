@@ -24,10 +24,10 @@ import com.electricityaccount.util.ElectrictyAccountDBConnection;
  */
 
 public class ElectricityAccountLogic implements IElectricityAccount{
-	
+
 	// Initialize DB Connection
 	private ElectrictyAccountDBConnection dbconnection = new ElectrictyAccountDBConnection();
-	
+
 	// Initialize Logger
 	public static final Logger log = Logger.getLogger(ElectricityAccountLogic.class.getName());
 
@@ -43,6 +43,8 @@ public class ElectricityAccountLogic implements IElectricityAccount{
 	private static final String SELECT_ALL_ELECTRICITY_ACCOUNTS = "SELECT * FROM ElectricityAccount;";
 
 	private static final String SELECT_ELECTRICITY_ACCOUNT_BY_PREMISE = "SELECT * FROM ElectricityAccount WHERE premise = ?;";
+	
+	private static final String SELECT_ELECTRICITY_ACCOUNT_BY_ID = "SELECT * FROM ElectricityAccount WHERE eacc_id = ?;";
 
 	private static final String UPDATE_ELECTRICITY_ACCOUNT = "UPDATE ElectricityAccount "
 			+ "SET eacc_name = ?, billing_address = ?, con_type = ?, con_purpose = ?, con_status = ?, electrcity_supply = ?, premise = ?"
@@ -53,14 +55,55 @@ public class ElectricityAccountLogic implements IElectricityAccount{
 
 	// JDBC
 	private static Connection connection = null;
-	private static PreparedStatement preparedstatement = null;
+	private static PreparedStatement preparedStmt = null;
 	private static Statement statement = null;
 	private static ResultSet rs = null;
 
 	@Override
 	public String insertElectricityAccount(ElectricityAccount eacc) {
-		// TODO Auto-generated method stub
-		return null;
+		String output = "";
+		
+		try {
+			connection = dbconnection.getConnection();
+			
+			if (connection == null) {
+				return DB_CONNECTION_ERROR_MSG;
+			}
+
+			// initialize prepared statement
+			preparedStmt = connection.prepareStatement(INSERT_ELECTRICITY_ACCOUNT);
+
+			// bind values
+			preparedStmt.setString(1, eacc.getEaccName());
+			preparedStmt.setString(2, eacc.getBillingAddress());
+			preparedStmt.setString(3, eacc.getConType());
+			preparedStmt.setString(4, eacc.getConPurpose());
+			preparedStmt.setString(5, eacc.getConStatus());
+			preparedStmt.setString(6, eacc.getElectrcitySupply());
+			preparedStmt.setString(7, eacc.getPremise());
+			
+			// execute the prepared statement
+			int newID = preparedStmt.executeUpdate();
+			output = "Inserted successfully. New Record ID: " + newID;
+			
+		} catch (Exception e) {
+			output = "Error while inserting";
+			log.log(Level.SEVERE, e.getMessage());
+		} finally {
+			// Close prepared statement and database connectivity
+			try {
+				if (preparedStmt != null) {
+					preparedStmt.close();
+				}
+				
+				if (connection != null) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				log.log(Level.SEVERE, e.getMessage());
+			}
+		}
+		return output;
 	}
 
 	@Override
@@ -77,7 +120,7 @@ public class ElectricityAccountLogic implements IElectricityAccount{
 
 	@Override
 	public Map<String, Object> getAllElectricityAccounts() {
-		
+
 		// Initialize Electricity account List
 		List<ElectricityAccount> electricityAccountList = new ArrayList<>();
 
@@ -91,7 +134,7 @@ public class ElectricityAccountLogic implements IElectricityAccount{
 			connection = dbconnection.getConnection();
 			if (connection == null) {
 				err.setErrorMessage(DB_CONNECTION_ERROR_MSG);
-				
+
 				// Return connection error
 				data.put(DB_CONNECTION_ERROR_LBL, err);
 				return data;
@@ -99,13 +142,13 @@ public class ElectricityAccountLogic implements IElectricityAccount{
 
 			// initialize a statement
 			statement = connection.createStatement();
-			
-			
+
+
 			rs = statement.executeQuery(SELECT_ALL_ELECTRICITY_ACCOUNTS);
-			
+
 			while (rs.next()) {
 				ElectricityAccount electricityAccount = new ElectricityAccount();
-				
+
 				electricityAccount.setEaccID(rs.getInt("eacc_id"));
 				electricityAccount.setEaccName(rs.getString("eacc_name"));
 				electricityAccount.setBillingAddress(rs.getString("billing_address"));
@@ -114,22 +157,22 @@ public class ElectricityAccountLogic implements IElectricityAccount{
 				electricityAccount.setConStatus(rs.getString("con_status"));
 				electricityAccount.setElectrcitySupply(rs.getString("electrcity_supply"));
 				electricityAccount.setPremise(rs.getString("premise"));
-				
+
 				electricityAccountList.add(electricityAccount);
 			}
-			
+
 			// return electricity account list
-			
+
 			data.put("ElectricityAccount", electricityAccountList);
 			return data;
 
 		} catch (Exception e) {
 			log.log(Level.SEVERE, e.getMessage());
-			
+
 			// return database read error
 			data.put("DB Read Error", e.getMessage());
 			return data;
-			
+
 		} finally {
 			// Close statement and database connection
 			try {
@@ -146,9 +189,65 @@ public class ElectricityAccountLogic implements IElectricityAccount{
 	}
 
 	@Override
-	public Map<String, Object> getElectricityAccount() {
-		// TODO Auto-generated method stub
-		return null;
+	public Map<String, Object> getElectricityAccountByID(int id) {
+		// Create Error Message
+		ElectricityAccountError emsg = new ElectricityAccountError();
+
+				// Initialize Data to return
+				Map<String, Object> data = new HashMap<>();
+				
+				try {
+					connection = dbconnection.getConnection();
+					
+					if (connection == null) {
+						emsg.setErrorMessage(DB_CONNECTION_ERROR_MSG);
+						data.put(DB_CONNECTION_ERROR_LBL, emsg);
+						return data;
+					}
+
+					preparedStmt = connection.prepareStatement(SELECT_ELECTRICITY_ACCOUNT_BY_ID);
+					preparedStmt.setInt(1, id);
+					rs = preparedStmt.executeQuery();
+					
+					// iterate through the rows in the result set
+					if (rs.next()) {
+
+						ElectricityAccount electricityAccount = new ElectricityAccount();
+
+						electricityAccount.setEaccID(rs.getInt("eacc_id"));
+						electricityAccount.setEaccName(rs.getString("eacc_name"));
+						electricityAccount.setBillingAddress(rs.getString("billing_address"));
+						electricityAccount.setConType(rs.getString("con_type"));
+						electricityAccount.setConPurpose(rs.getString("con_purpose"));
+						electricityAccount.setConStatus(rs.getString("con_status"));
+						electricityAccount.setElectrcitySupply(rs.getString("electrcity_supply"));
+						electricityAccount.setPremise(rs.getString("premise"));
+
+						data.put("ElectricityAcccount", electricityAccount);
+					}
+					return data;
+
+				} catch (Exception e) {
+					log.log(Level.SEVERE, e.getMessage());
+					
+					emsg.setErrorMessage(e.getMessage());
+					data.put("DBReadError", emsg);
+					
+					return data;
+				} finally {
+
+					// Close statement and database connection
+					try {
+						if (statement != null) {
+							statement.close();
+						}
+						if (connection != null) {
+							connection.close();
+						}
+					} catch (SQLException e) {
+						log.log(Level.SEVERE, e.getMessage());
+					}
+				}
 	}
 
 	@Override
