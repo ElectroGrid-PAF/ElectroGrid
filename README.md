@@ -12,3 +12,7 @@
 </div>
 
 
+## Description:
+This is a RESTful web service for powergird maintenance which offers services to monitor power consumption of users, generate monthly bills and automatically send to the users, and accept online payments from users.
+
+
