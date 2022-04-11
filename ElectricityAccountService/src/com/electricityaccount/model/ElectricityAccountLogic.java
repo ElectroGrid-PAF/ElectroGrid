@@ -162,9 +162,47 @@ public class ElectricityAccountLogic implements IElectricityAccount{
 	}
 
 	@Override
-	public String deleteElectricityAccount(int eacc_id) {
-		// TODO Auto-generated method stub
-		return null;
+	public String deleteElectricityAccount(int eaccID) {
+		String output = "";
+		
+		Map<String, Object> result = getElectricityAccountByID(eaccID);
+
+		if (result.get("ElectricityAcccount") == null) {
+			return "Invalid Electricity Account ID, Deletion Failed.";
+		}
+
+		try {
+			connection = dbconnection.getConnection();
+			if (connection == null) {
+				return "Error while connecting to the database for deletion.";
+			}
+
+			// Initialize prepares statement
+			preparedStmt = connection.prepareStatement(DELETE_ELECTRICITY_ACCOUNT);
+			preparedStmt.setInt(1, eaccID);
+			preparedStmt.executeUpdate();
+
+			output = "Sueccessfully Deleted.";
+
+		} catch (Exception e) {
+			log.log(Level.SEVERE, e.getMessage());
+			output = "Error while deleting the electricity account.";
+		} finally {
+
+			// Close prepared statement and database connectivity at the end of transaction 
+			try {
+				if (preparedStmt != null) {
+					preparedStmt.close();
+				}
+				if (connection != null) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				log.log(Level.SEVERE, e.getMessage());
+			}
+		}
+
+		return output;
 	}
 
 	@Override
