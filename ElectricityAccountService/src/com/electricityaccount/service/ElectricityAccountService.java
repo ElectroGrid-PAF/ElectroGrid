@@ -84,14 +84,14 @@ public class ElectricityAccountService {
 	@Path("/")
 	@Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	@Produces(MediaType.TEXT_PLAIN)
-	public String deleteElectricityAccount(String eaccData) {
+	public String deleteElectricityAccount(String eaccID) {
 
 		// Convert the input string to a JSON object
-		JsonObject sjosnObj = new JsonParser().parse(eaccData).getAsJsonObject(); 
+		JsonObject josnObj = new JsonParser().parse(eaccID).getAsJsonObject(); 
 
 		//Read the value from the element <itemID>
-		String eaccID = sjosnObj.get("itemID").toString(); 
-		
-		return iElectricityAccount.deleteElectricityAccount(Integer.parseInt(eaccID));
+		String id = josnObj.get("eaccID").toString(); 
+				
+		return iElectricityAccount.deleteElectricityAccount(Integer.parseInt(id));
 	}
 }
