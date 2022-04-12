@@ -174,7 +174,7 @@ public class ElectricityAccountLogic implements IElectricityAccount{
 
 		Map<String, Object> result = getElectricityAccountByID(eacc.getEaccID());
 
-		if (result.get("ElectricityAcccount") == null) {
+		if (result.get("ElectricityAccount") == null) {
 			return "Invalid Electricity Account ID, Update Failed";
 		}
 
