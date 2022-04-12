@@ -123,8 +123,10 @@ public class ElectricityAccountLogic implements IElectricityAccount{
 		String output = "";
 
 		Map<String, Object> result = getElectricityAccountByID(id);
+		
+		int recStatus = Integer.parseInt(result.get("RecStatus").toString());
 
-		if (result.get("ElectricityAcccount") == null) {
+		if (recStatus == 1) {
 			return "Invalid Electricity Account ID, Update Failed";
 		}
 
@@ -174,7 +176,11 @@ public class ElectricityAccountLogic implements IElectricityAccount{
 
 		Map<String, Object> result = getElectricityAccountByID(eacc.getEaccID());
 
-		if (result.get("ElectricityAccount") == null) {
+		int recStatus = Integer.parseInt(result.get("RecStatus").toString());
+		
+		System.out.println(recStatus);
+		
+		if (recStatus == 0) {
 			return "Invalid Electricity Account ID, Update Failed";
 		}
 
@@ -229,8 +235,10 @@ public class ElectricityAccountLogic implements IElectricityAccount{
 		String output = "";
 
 		Map<String, Object> result = getElectricityAccountByID(eaccID);
+		
+		int recStatus = Integer.parseInt(result.get("RecStatus").toString());
 
-		if (result.get("ElectricityAccount") == null) {
+		if (recStatus == 0) {
 			return "Invalid Electricity Account ID, Deletion Failed.";
 		}
 
@@ -350,6 +358,8 @@ public class ElectricityAccountLogic implements IElectricityAccount{
 
 		// Initialize Data to return
 		Map<String, Object> data = new HashMap<>();
+		
+		int recStatus = 0;
 
 		try {
 			connection = dbconnection.getConnection();
@@ -378,11 +388,13 @@ public class ElectricityAccountLogic implements IElectricityAccount{
 				electricityAccount.setPremise(rs.getString("premise"));
 
 				electricityAccountList.add(electricityAccount);
+				
+				recStatus++;
 			}
 
 			// return electricity account list
-
 			data.put("ElectricityAccount", electricityAccountList);
+			data.put("RecStatus", recStatus);
 			return data;
 
 		} catch (Exception e) {
