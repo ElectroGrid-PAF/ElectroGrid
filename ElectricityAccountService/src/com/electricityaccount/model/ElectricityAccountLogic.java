@@ -50,6 +50,8 @@ public class ElectricityAccountLogic implements IElectricityAccount{
 			+ "SET eacc_name = ?, billing_address = ?, con_type = ?, con_purpose = ?, con_status = ?, electrcity_supply = ?, premise = ?"
 			+ "WHERE eacc_id = ?;";
 
+	private static final String UPDATE_ELECTRICITY_ACCOUNT_STATUS = "UPDATE ElectricityAccount SET con_status = ? WHERE eacc_id = ?;";
+
 	private static final String DELETE_ELECTRICITY_ACCOUNT = "DELETE FROM ElectricityAccount WHERE eacc_id = ?;";
 
 
@@ -72,7 +74,7 @@ public class ElectricityAccountLogic implements IElectricityAccount{
 			}
 
 			// initialize prepared statement
-			preparedStmt = connection.prepareStatement(INSERT_ELECTRICITY_ACCOUNT);
+			preparedStmt = connection.prepareStatement(INSERT_ELECTRICITY_ACCOUNT, Statement.RETURN_GENERATED_KEYS);
 
 			// bind values
 			preparedStmt.setString(1, eacc.getEaccName());
@@ -84,8 +86,16 @@ public class ElectricityAccountLogic implements IElectricityAccount{
 			preparedStmt.setString(7, eacc.getPremise());
 
 			// execute the prepared statement
-			int newID = preparedStmt.executeUpdate();
-			output = "Inserted successfully. New Record ID: " + newID;
+			preparedStmt.executeUpdate();
+
+			ResultSet rs = preparedStmt.getGeneratedKeys();
+
+			int generatedKey = 0;
+			if (rs.next()) {
+				generatedKey = rs.getInt(1);
+			}
+
+			output = "Inserted successfully. New Account ID: " + generatedKey;
 
 		} catch (Exception e) {
 			output = "Error while inserting";
@@ -104,6 +114,56 @@ public class ElectricityAccountLogic implements IElectricityAccount{
 				log.log(Level.SEVERE, e.getMessage());
 			}
 		}
+		return output;
+	}
+
+	// Update electricity account status
+	@Override
+	public String updateElectricityAccountStatus(int id, String staus) {
+		String output = "";
+
+		Map<String, Object> result = getElectricityAccountByID(id);
+
+		if (result.get("ElectricityAcccount") == null) {
+			return "Invalid Electricity Account ID, Update Failed";
+		}
+
+		connection = dbconnection.getConnection();
+
+		if (connection == null) {
+			return DB_CONNECTION_ERROR_MSG;
+		}
+
+		try {
+
+			// create a prepared statement
+			preparedStmt = connection.prepareStatement(UPDATE_ELECTRICITY_ACCOUNT_STATUS);
+
+			// bind values
+			preparedStmt.setString(1, staus);
+			preparedStmt.setInt(2, id);
+
+			preparedStmt.executeUpdate();
+
+			output = "Updated successfully";
+		} catch (SQLException e) {
+			output = "Error while updating";
+			log.log(Level.SEVERE, e.getMessage());
+		} finally {
+			// Close prepared statement and database connectivity
+			try {
+				if (preparedStmt != null) {
+					preparedStmt.close();
+				}
+
+				if (connection != null) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				log.log(Level.SEVERE, e.getMessage());
+			}
+		}
+
 		return output;
 	}
 
@@ -170,7 +230,7 @@ public class ElectricityAccountLogic implements IElectricityAccount{
 
 		Map<String, Object> result = getElectricityAccountByID(eaccID);
 
-		if (result.get("ElectricityAcccount") == null) {
+		if (result.get("ElectricityAccount") == null) {
 			return "Invalid Electricity Account ID, Deletion Failed.";
 		}
 
@@ -284,7 +344,7 @@ public class ElectricityAccountLogic implements IElectricityAccount{
 	public Map<String, Object> getElectricityAccountByID(int id) {
 		// Initialize Electricity account List
 		List<ElectricityAccount> electricityAccountList = new ArrayList<>();
-				
+
 		// Create Error Message
 		ElectricityAccountError emsg = new ElectricityAccountError();
 
@@ -348,7 +408,7 @@ public class ElectricityAccountLogic implements IElectricityAccount{
 		}
 	}
 
-	// Retrieve all electricity account with specifc premise
+	// Retrieve all electricity account with specific premise
 	@Override
 	public Map<String, Object> getElectricityAccountByPremise(String pid) {
 		// Create Error Message
@@ -386,7 +446,7 @@ public class ElectricityAccountLogic implements IElectricityAccount{
 
 				data.put("ElectricityAcccount", electricityAccount);
 			}
-			
+
 			return data;
 
 		} catch (Exception e) {

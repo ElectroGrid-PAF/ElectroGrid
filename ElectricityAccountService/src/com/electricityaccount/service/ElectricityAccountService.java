@@ -92,6 +92,23 @@ public class ElectricityAccountService {
 		return iElectricityAccount.updateElectricityAccount(eacc);
 	}
 
+	// update electricity account status
+	@PUT
+	@Path("/status")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.TEXT_PLAIN)
+	public String updateElecricityAccountStatus(String data) {
+
+		// Convert input string to a JSON object
+		JsonObject josnObj = new JsonParser().parse(data).getAsJsonObject(); 
+
+		//Read value from the element eaccID
+		String id = josnObj.get("eaccID").toString(); 
+		String status = josnObj.get("conStatus").toString();
+
+		return iElectricityAccount.updateElectricityAccountStatus(Integer.parseInt(id), status);
+	}
+
 	// Delete electricity account
 	@DELETE
 	@Path("/")
@@ -103,8 +120,8 @@ public class ElectricityAccountService {
 		JsonObject josnObj = new JsonParser().parse(eaccID).getAsJsonObject(); 
 
 		//Read value from the element eaccID
-		String id = josnObj.get("eaccID").toString(); 
-
-		return iElectricityAccount.deleteElectricityAccount(Integer.parseInt(id));
+		int id = Integer.parseInt(josnObj.get("eaccID").toString());
+		
+		return iElectricityAccount.deleteElectricityAccount(id);
 	}
 }

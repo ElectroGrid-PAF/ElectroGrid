@@ -21,22 +21,16 @@ import com.sun.jersey.api.client.WebResource;
 @Path("/Accounts")
 public class ElectrictyAccountClient {
 	private static String baseURI = "http://localhost:8080/ElectricityAccount/AccountService/Accounts";
-
+	private static Client client = Client.create();
+	
 	// Retrieve all electricity accounts
 	@GET
 	@Path("/")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String testGet() {
-		WebResource resource = getWebResource();
+		WebResource resource = client.resource(baseURI);;
 		String output = resource.get(String.class);
 	
 		return output;
-	}
-	
-	static WebResource getWebResource() {
-		Client client = Client.create();
-		WebResource resource = client.resource(baseURI);
-
-		return resource;
 	}
 }
