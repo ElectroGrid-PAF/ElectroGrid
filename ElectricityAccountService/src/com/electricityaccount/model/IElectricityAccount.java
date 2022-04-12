@@ -16,6 +16,8 @@ public interface IElectricityAccount {
 	public String insertElectricityAccount(ElectricityAccount eacc);
 
 	public String updateElectricityAccount(ElectricityAccount ecc);
+	
+	public String updateElectricityAccountStatus(int eacc_id, String staus);
 
 	public String deleteElectricityAccount(int eacc_id);
 
