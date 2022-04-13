@@ -12,6 +12,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.codehaus.jackson.map.ObjectMapper;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONString;
 
@@ -44,9 +45,13 @@ public class ElectricityAccountInterService {
 	}
 
 	// get all the bills for electricity accounts from Electricity Reading Service
-	public WebResource getAllBills() {
-
-		return client.resource(base_URI);
+	public JSONArray getAllBills() {
+		
+		WebResource webResource = client.resource(base_URI);
+		ClientResponse response = webResource.accept("application/json").get(ClientResponse.class);
+		JSONArray jsonArr = new JSONArray(response.getEntity(String.class));
+		
+		return jsonArr;
 		
 	}
 }

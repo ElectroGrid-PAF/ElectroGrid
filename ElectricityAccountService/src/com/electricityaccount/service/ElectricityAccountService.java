@@ -137,27 +137,25 @@ public class ElectricityAccountService {
 	@Produces(MediaType.APPLICATION_JSON)
 	public String listElectricityAccountsBills(@PathParam("id") String id) {
 		ElectricityAccountInterService interService = new ElectricityAccountInterService();
-		
-		WebResource webResource = interService.getAllBills();
-		ClientResponse response = webResource.accept("application/json").get(ClientResponse.class);
 
-		JSONArray jsonArr = new JSONArray(response.getEntity(String.class));
-		JSONObject jsonObj = new JSONObject();
+		JSONArray jsonArr = interService.getAllBills();
 		
+		JSONObject jsonObj = new JSONObject();
 		JSONArray filteredAcc = new JSONArray();
 
-		// Iterate jsonArray using for loop   
+		// iterate jsonArray using for loop   
 		for (int i = 0; i < jsonArr.length(); i++) {  
 
 			// store each object in JSONObject  
-			JSONObject explrObject = jsonArr.getJSONObject(i);  
+			jsonObj = jsonArr.getJSONObject(i);  
 
 			// get field value from JSONObject using get() method  
-			if(id.equals(explrObject.get("Account_ID"))){
-				filteredAcc.put(explrObject);
+			if(id.equals(jsonObj.get("Account_ID"))){
+				filteredAcc.put(jsonObj);
 			}
 		}     
 
+		System.out.println("TESTR");
 		return filteredAcc.toString();
 	}
 }
