@@ -10,6 +10,10 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import org.codehaus.jackson.map.ObjectMapper;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import com.electricityaccount.model.ElectricityAccount;
 import com.electricityaccount.model.ElectricityAccountLogic;
 import com.electricityaccount.model.IElectricityAccount;
@@ -17,6 +21,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.sun.jersey.api.client.ClientResponse;
+import com.sun.jersey.api.client.WebResource;
 
 /**
  * ElectricityAccountService class is the RESTful interface for ElectricityAccount resource
@@ -58,7 +64,7 @@ public class ElectricityAccountService {
 
 	// Retrieve electricity accounts with specific premise
 	@GET
-	@Path("premise/{pid}")
+	@Path("/premise/{pid}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String readElectricityAccountByPremise(@PathParam("pid") String pid) {
 
@@ -121,7 +127,37 @@ public class ElectricityAccountService {
 
 		//Read value from the element eaccID
 		int id = Integer.parseInt(josnObj.get("eaccID").toString());
-		
+
 		return iElectricityAccount.deleteElectricityAccount(id);
+	}
+
+	// Retrieve bills of a specific electricity account
+	@GET
+	@Path("/{id}/bills")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String listElectricityAccountsBills(@PathParam("id") String id) {
+		ElectricityAccountInterService interService = new ElectricityAccountInterService();
+		
+		WebResource webResource = interService.getAllBills();
+		ClientResponse response = webResource.accept("application/json").get(ClientResponse.class);
+
+		JSONArray jsonArr = new JSONArray(response.getEntity(String.class));
+		JSONObject jsonObj = new JSONObject();
+		
+		JSONArray filteredAcc = new JSONArray();
+
+		// Iterate jsonArray using for loop   
+		for (int i = 0; i < jsonArr.length(); i++) {  
+
+			// store each object in JSONObject  
+			JSONObject explrObject = jsonArr.getJSONObject(i);  
+
+			// get field value from JSONObject using get() method  
+			if(id.equals(explrObject.get("Account_ID"))){
+				filteredAcc.put(explrObject);
+			}
+		}     
+
+		return filteredAcc.toString();
 	}
 }
