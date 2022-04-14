@@ -40,7 +40,7 @@ public class ElectrcityAccountJSONFilter {
 			// store each object in JSONObject  
 			jsonObj = jsonArr.getJSONObject(i);  
 
-			// get field value from JSONObject using get() method  
+			// get field value from JSONObject and compare 
 			if(jsonObj.get("Issued_Date").toString().contains(year)){
 				filteredArr.put(jsonObj);
 			}

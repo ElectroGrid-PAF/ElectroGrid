@@ -156,7 +156,7 @@ public class ElectricityAccountService {
 
 		JSONArray jsonArr = interService.getAllBills();
 
-		JSONArray filteredAcc = 	jsonFilter.filterbyAccountID(jsonArr, id);    
+		JSONArray filteredAcc = jsonFilter.filterbyAccountID(jsonArr, id);    
 		filteredAcc = jsonFilter.filterbyDate(filteredAcc, year);
 
 		return filteredAcc.toString();
