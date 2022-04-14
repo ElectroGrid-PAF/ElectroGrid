@@ -139,26 +139,26 @@ public class ElectricityAccountService {
 	public String listElectricityAccountBills(@PathParam("id") String id) {
 		ElectricityAccountInterService interService = new ElectricityAccountInterService();
 		ElectrcityAccountJSONFilter jsonFilter = new ElectrcityAccountJSONFilter();	
-		
+
 		JSONArray jsonArr = interService.getAllBills();
 		JSONArray filteredAcc = 	jsonFilter.filterbyAccountID(jsonArr, id);    
 
 		return filteredAcc.toString();
 	}
-	
-	// Retrieve bills of a specific electricity account
-		@GET
-		@Path("/{id}/bills/{year}")
-		@Produces(MediaType.APPLICATION_JSON)
-		public String listElectricityAccountBillsByDate(@PathParam("id") String id, @PathParam("year") String year) {
-			ElectricityAccountInterService interService = new ElectricityAccountInterService();
-			ElectrcityAccountJSONFilter jsonFilter = new ElectrcityAccountJSONFilter();	
-			
-			JSONArray jsonArr = interService.getAllBills();
-			
-			JSONArray filteredAcc = 	jsonFilter.filterbyAccountID(jsonArr, id);    
-			filteredAcc = jsonFilter.filterbyDate(filteredAcc, year);
 
-			return filteredAcc.toString();
-		}
+	// Retrieve bills of a specific electricity account by year
+	@GET
+	@Path("/{id}/bills/{year}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String listElectricityAccountBillsByDate(@PathParam("id") String id, @PathParam("year") String year) {
+		ElectricityAccountInterService interService = new ElectricityAccountInterService();
+		ElectrcityAccountJSONFilter jsonFilter = new ElectrcityAccountJSONFilter();	
+
+		JSONArray jsonArr = interService.getAllBills();
+
+		JSONArray filteredAcc = 	jsonFilter.filterbyAccountID(jsonArr, id);    
+		filteredAcc = jsonFilter.filterbyDate(filteredAcc, year);
+
+		return filteredAcc.toString();
+	}
 }
