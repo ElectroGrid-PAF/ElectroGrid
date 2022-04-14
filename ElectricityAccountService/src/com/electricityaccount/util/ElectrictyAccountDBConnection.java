@@ -18,10 +18,6 @@ public final class ElectrictyAccountDBConnection {
 	private static String jdbcUsername =  "root";
 	private static String jdbcPassword = "gobisql123";
 
-	public ElectrictyAccountDBConnection() {
-
-	}
-
 	/**
 	 * 
 	 * @return connection
@@ -33,9 +29,7 @@ public final class ElectrictyAccountDBConnection {
 			try {
 				Class.forName("com.mysql.jdbc.Driver");
 				connection = DriverManager.getConnection(jdbcURL, jdbcUsername, jdbcPassword);
-			} catch (SQLException e) {
-				e.printStackTrace();
-			} catch (ClassNotFoundException e) {
+			} catch (SQLException |ClassNotFoundException e) {
 				e.printStackTrace();
 			}
 		}
