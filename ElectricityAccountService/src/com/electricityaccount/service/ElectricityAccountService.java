@@ -17,6 +17,7 @@ import org.json.JSONObject;
 import com.electricityaccount.model.ElectricityAccount;
 import com.electricityaccount.model.ElectricityAccountLogic;
 import com.electricityaccount.model.IElectricityAccount;
+import com.electricityaccount.util.ElectrcityAccountJSONFilter;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
@@ -135,27 +136,29 @@ public class ElectricityAccountService {
 	@GET
 	@Path("/{id}/bills")
 	@Produces(MediaType.APPLICATION_JSON)
-	public String listElectricityAccountsBills(@PathParam("id") String id) {
+	public String listElectricityAccountBills(@PathParam("id") String id) {
 		ElectricityAccountInterService interService = new ElectricityAccountInterService();
-
-		JSONArray jsonArr = interService.getAllBills();
+		ElectrcityAccountJSONFilter jsonFilter = new ElectrcityAccountJSONFilter();	
 		
-		JSONObject jsonObj = new JSONObject();
-		JSONArray filteredAcc = new JSONArray();
+		JSONArray jsonArr = interService.getAllBills();
+		JSONArray filteredAcc = 	jsonFilter.filterbyAccountID(jsonArr, id);    
 
-		// iterate jsonArray using for loop   
-		for (int i = 0; i < jsonArr.length(); i++) {  
-
-			// store each object in JSONObject  
-			jsonObj = jsonArr.getJSONObject(i);  
-
-			// get field value from JSONObject using get() method  
-			if(id.equals(jsonObj.get("Account_ID"))){
-				filteredAcc.put(jsonObj);
-			}
-		}     
-
-		System.out.println("TESTR");
 		return filteredAcc.toString();
 	}
+	
+	// Retrieve bills of a specific electricity account
+		@GET
+		@Path("/{id}/bills/{year}")
+		@Produces(MediaType.APPLICATION_JSON)
+		public String listElectricityAccountBillsByDate(@PathParam("id") String id, @PathParam("year") String year) {
+			ElectricityAccountInterService interService = new ElectricityAccountInterService();
+			ElectrcityAccountJSONFilter jsonFilter = new ElectrcityAccountJSONFilter();	
+			
+			JSONArray jsonArr = interService.getAllBills();
+			
+			JSONArray filteredAcc = 	jsonFilter.filterbyAccountID(jsonArr, id);    
+			filteredAcc = jsonFilter.filterbyDate(filteredAcc, year);
+
+			return filteredAcc.toString();
+		}
 }
