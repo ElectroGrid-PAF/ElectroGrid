@@ -51,7 +51,6 @@ public class ElectricityAccountInterService {
 		ClientResponse response = webResource.accept("application/json").get(ClientResponse.class);
 		JSONArray jsonArr = new JSONArray(response.getEntity(String.class));
 		
-		return jsonArr;
-		
+		return jsonArr;	
 	}
 }
