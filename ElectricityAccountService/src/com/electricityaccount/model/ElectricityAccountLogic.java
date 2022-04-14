@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.ErrorManager;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -24,9 +23,6 @@ import com.electricityaccount.util.ElectrictyAccountDBConnection;
  */
 
 public class ElectricityAccountLogic implements IElectricityAccount{
-
-	// Initialize DB Connection
-	private ElectrictyAccountDBConnection dbconnection = new ElectrictyAccountDBConnection();
 
 	// Initialize Logger
 	public static final Logger log = Logger.getLogger(ElectricityAccountLogic.class.getName());
@@ -67,7 +63,7 @@ public class ElectricityAccountLogic implements IElectricityAccount{
 		String output = "";
 
 		try {
-			connection = dbconnection.getConnection();
+			connection = ElectrictyAccountDBConnection.getConnection();
 
 			if (connection == null) {
 				return DB_CONNECTION_ERROR_MSG;
@@ -130,7 +126,7 @@ public class ElectricityAccountLogic implements IElectricityAccount{
 			return "Invalid Electricity Account ID, Update Failed";
 		}
 
-		connection = dbconnection.getConnection();
+		connection = ElectrictyAccountDBConnection.getConnection();
 
 		if (connection == null) {
 			return DB_CONNECTION_ERROR_MSG;
@@ -184,7 +180,7 @@ public class ElectricityAccountLogic implements IElectricityAccount{
 			return "Invalid Electricity Account ID, Update Failed";
 		}
 
-		connection = dbconnection.getConnection();
+		connection = ElectrictyAccountDBConnection.getConnection();
 
 		if (connection == null) {
 			return DB_CONNECTION_ERROR_MSG;
@@ -243,7 +239,8 @@ public class ElectricityAccountLogic implements IElectricityAccount{
 		}
 
 		try {
-			connection = dbconnection.getConnection();
+			connection = ElectrictyAccountDBConnection.getConnection();
+			
 			if (connection == null) {
 				return "Error while connecting to the database for deletion.";
 			}
@@ -290,7 +287,8 @@ public class ElectricityAccountLogic implements IElectricityAccount{
 		Map<String, Object> data = new HashMap<>();
 
 		try {
-			connection = dbconnection.getConnection();
+			connection = ElectrictyAccountDBConnection.getConnection();
+			
 			if (connection == null) {
 				err.setErrorMessage(DB_CONNECTION_ERROR_MSG);
 
@@ -362,7 +360,7 @@ public class ElectricityAccountLogic implements IElectricityAccount{
 		int recStatus = 0;
 
 		try {
-			connection = dbconnection.getConnection();
+			connection = ElectrictyAccountDBConnection.getConnection();
 
 			if (connection == null) {
 				emsg.setErrorMessage(DB_CONNECTION_ERROR_MSG);
@@ -430,7 +428,7 @@ public class ElectricityAccountLogic implements IElectricityAccount{
 		Map<String, Object> data = new HashMap<>();
 
 		try {
-			connection = dbconnection.getConnection();
+			connection = ElectrictyAccountDBConnection.getConnection();
 
 			if (connection == null) {
 				emsg.setErrorMessage(DB_CONNECTION_ERROR_MSG);
