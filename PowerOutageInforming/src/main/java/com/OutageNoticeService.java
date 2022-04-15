@@ -1,4 +1,5 @@
 package com;
+
 import model.OutageNotice;
 
 //For REST Service
@@ -76,4 +77,5 @@ public class OutageNoticeService
 		String output = noticeObj.deleteNotice(noticeID);
 		return output;
 	}
-}	
+
+}
