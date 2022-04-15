@@ -40,4 +40,25 @@ public class OutageNoticeService
 	 String output = noticeObj.insertNotice(regionID, group, Description, outageStartTime, outageEndTime, informerID);
 	 return output;
 	}
+	
+	@PUT
+	@Path("/")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.TEXT_PLAIN)
+	public String updateNotice(String noticeData)
+	{
+		//Convert the input string to a JSON object
+		JsonObject noticeObject = new JsonParser().parse(noticeData).getAsJsonObject();
+		//Read the values from the JSON object
+		String noticeID = noticeObject.get("noticeID").getAsString();
+		String regionID = noticeObject.get("regionID").getAsString();
+		String group = noticeObject.get("group").getAsString();
+		String Description = noticeObject.get("Description").getAsString();
+		String outageStartTime = noticeObject.get("outageStartTime").getAsString();
+		String outageEndTime = noticeObject.get("outageEndTime").getAsString();
+		String informerID = noticeObject.get("informerID").getAsString();
+		
+		String output = noticeObj.updateNotice(noticeID, regionID, group, Description, outageStartTime, outageEndTime, informerID);
+		return output;
+	}
 }	
