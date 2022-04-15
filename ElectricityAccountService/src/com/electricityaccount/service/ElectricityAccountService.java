@@ -10,9 +10,12 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import org.json.JSONArray;
+
 import com.electricityaccount.model.ElectricityAccount;
 import com.electricityaccount.model.ElectricityAccountLogic;
 import com.electricityaccount.model.IElectricityAccount;
+import com.electricityaccount.util.ElectrcityAccountJSONFilter;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
@@ -58,7 +61,7 @@ public class ElectricityAccountService {
 
 	// Retrieve electricity accounts with specific premise
 	@GET
-	@Path("premise/{pid}")
+	@Path("/premise/{pid}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String readElectricityAccountByPremise(@PathParam("pid") String pid) {
 
@@ -92,6 +95,23 @@ public class ElectricityAccountService {
 		return iElectricityAccount.updateElectricityAccount(eacc);
 	}
 
+	// update electricity account status
+	@PUT
+	@Path("/status")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.TEXT_PLAIN)
+	public String updateElecricityAccountStatus(String data) {
+
+		// Convert input string to a JSON object
+		JsonObject josnObj = new JsonParser().parse(data).getAsJsonObject(); 
+
+		//Read value from the element eaccID
+		String id = josnObj.get("eaccID").toString(); 
+		String status = josnObj.get("conStatus").toString();
+
+		return iElectricityAccount.updateElectricityAccountStatus(Integer.parseInt(id), status);
+	}
+
 	// Delete electricity account
 	@DELETE
 	@Path("/")
@@ -103,8 +123,38 @@ public class ElectricityAccountService {
 		JsonObject josnObj = new JsonParser().parse(eaccID).getAsJsonObject(); 
 
 		//Read value from the element eaccID
-		String id = josnObj.get("eaccID").toString(); 
+		int id = Integer.parseInt(josnObj.get("eaccID").toString());
 
-		return iElectricityAccount.deleteElectricityAccount(Integer.parseInt(id));
+		return iElectricityAccount.deleteElectricityAccount(id);
+	}
+
+	// Retrieve bills of a specific electricity account
+	@GET
+	@Path("/{id}/bills")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String listElectricityAccountBills(@PathParam("id") String id) {
+		ElectricityAccountInterService interService = new ElectricityAccountInterService();
+		ElectrcityAccountJSONFilter jsonFilter = new ElectrcityAccountJSONFilter();	
+
+		JSONArray jsonArr = interService.getAllBills();
+		JSONArray filteredAcc = 	jsonFilter.filterbyAccountID(jsonArr, id);    
+
+		return filteredAcc.toString();
+	}
+
+	// Retrieve bills of a specific electricity account by year
+	@GET
+	@Path("/{id}/bills/{year}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String listElectricityAccountBillsByDate(@PathParam("id") String id, @PathParam("year") String year) {
+		ElectricityAccountInterService interService = new ElectricityAccountInterService();
+		ElectrcityAccountJSONFilter jsonFilter = new ElectrcityAccountJSONFilter();	
+
+		JSONArray jsonArr = interService.getAllBills();
+
+		JSONArray filteredAcc = jsonFilter.filterbyAccountID(jsonArr, id);    
+		filteredAcc = jsonFilter.filterbyDate(filteredAcc, year);
+
+		return filteredAcc.toString();
 	}
 }

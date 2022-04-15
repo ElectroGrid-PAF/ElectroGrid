@@ -1,8 +1,5 @@
 package com.electricityaccount.model;
 
-import java.sql.Connection;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -16,8 +13,10 @@ public interface IElectricityAccount {
 	public String insertElectricityAccount(ElectricityAccount eacc);
 
 	public String updateElectricityAccount(ElectricityAccount ecc);
+	
+	public String updateElectricityAccountStatus(int eaccID, String staus);
 
-	public String deleteElectricityAccount(int eacc_id);
+	public String deleteElectricityAccount(int eaccID);
 
 	public Map<String, Object> getAllElectricityAccounts();
 
