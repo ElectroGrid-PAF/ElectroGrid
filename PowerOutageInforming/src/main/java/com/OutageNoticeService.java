@@ -61,4 +61,19 @@ public class OutageNoticeService
 		String output = noticeObj.updateNotice(noticeID, regionID, group, Description, outageStartTime, outageEndTime, informerID);
 		return output;
 	}
+	
+	@DELETE
+	@Path("/")
+	@Consumes(MediaType.APPLICATION_XML)
+	@Produces(MediaType.TEXT_PLAIN)
+	public String deleteNotice(String noticeData)
+	{
+		//Convert the input string to an XML document
+		Document doc = Jsoup.parse(noticeData, "", Parser.xmlParser());
+
+		//Read the value from the element <itemID>
+		String noticeID = doc.select("noticeID").text();
+		String output = noticeObj.deleteNotice(noticeID);
+		return output;
+	}
 }	
