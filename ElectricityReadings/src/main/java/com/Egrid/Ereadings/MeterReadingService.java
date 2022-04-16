@@ -62,7 +62,7 @@ public class MeterReadingService {
 	}
 
 	@GET
-	@Path("/")
+	@Path("/ViewAll")
 	@Produces(MediaType.TEXT_HTML)
 	public String GetMeterReadings() {
 		return readingObj.GetMeterReadings();
@@ -79,7 +79,7 @@ public class MeterReadingService {
 
 	// sending meter readings of customer to database.
 	@POST
-	@Path("/")
+	@Path("/AddReadings")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces(MediaType.TEXT_PLAIN)
 	public String CreateMeterReading(@FormParam("MID") String MID, @FormParam("ID") String ID,
@@ -110,7 +110,7 @@ public class MeterReadingService {
 	}
 
 	@PUT
-	@Path("/")
+	@Path("/UpdateReadings")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)
 	public String UpdateMeterReading(String JsonData) throws ParseException {
