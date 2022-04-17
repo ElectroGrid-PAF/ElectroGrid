@@ -19,7 +19,7 @@ import com.google.gson.JsonParser;
 
 import model.Complaint;
 
-@Path("/Complaint") 
+@Path("/Complaint/secured") 
 
 public class ComplaintService {
 	 Complaint complaint = new Complaint();

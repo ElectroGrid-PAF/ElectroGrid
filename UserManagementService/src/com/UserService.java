@@ -17,7 +17,7 @@ import org.jsoup.*;
 import org.jsoup.parser.*; 
 import org.jsoup.nodes.Document; 
 
-@Path("/Users")
+@Path("/Users/secured")
 public class UserService {
 	User user = new User();
 	
@@ -82,4 +82,5 @@ public class UserService {
 		String output = user.DeleteAccount(UserID); 
 		return output; 
 	}
+	
 }
