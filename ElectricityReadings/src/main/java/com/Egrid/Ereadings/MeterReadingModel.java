@@ -108,6 +108,7 @@ public class MeterReadingModel {
 	}
 
 	public String GetMeterReadings() {
+	//	StringBuilder  out = new StringBuilder ();
 		String output = "";
 
 		try
