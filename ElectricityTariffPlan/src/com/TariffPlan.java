@@ -5,8 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-
-
 public class TariffPlan {
 	private Connection con;
 
@@ -105,7 +103,7 @@ public class TariffPlan {
 				return arr;
 			}
 
-			String query = "select * from electricity_tariff_plan where ET_ID = '"+id+"' ";
+			String query = "select * from electricity_tariff_plan where ET_ID = '" + id + "' ";
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 

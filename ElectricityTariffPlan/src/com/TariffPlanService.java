@@ -25,7 +25,6 @@ public class TariffPlanService {
 	public String getAlien(@PathParam("id") String id) {
 		double[] arr = Tobj.GetTariffPlan(id);
 
-
 		return arr[0] + "," + arr[1];
 	}
 
@@ -38,7 +37,6 @@ public class TariffPlanService {
 
 		double Ur = (double) Math.round(Unit_Rate * 100) / 100;
 		double Fc = (double) Math.round(Fixed_Charge * 100) / 100;
-
 
 		return Tobj.CreateTariffPlan(ET_ID, Tariff_Block, Ur, Fc);
 
