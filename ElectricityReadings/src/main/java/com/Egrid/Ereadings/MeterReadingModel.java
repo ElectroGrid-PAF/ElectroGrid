@@ -41,7 +41,7 @@ public class MeterReadingModel {
 			// execute the statement
 			preparedStmt.execute();
 			con.close();
-			output = "Meter Reading Updated successfully";
+			output = "Meter Reading inserted successfully";
 		} catch (Exception e) {
 			output = "Error while inserting the Meter reading.";
 			e.printStackTrace();
@@ -67,7 +67,7 @@ public class MeterReadingModel {
 				// execute the statement
 				preparedStmt.execute();
 				con.close();
-				output = "Deleted successfully";
+				output = "MeterReading Deleted successfully";
 			} catch (Exception e) {
 				output = "Error while deleting the meter readings !!";
 				e.printStackTrace();
@@ -108,6 +108,7 @@ public class MeterReadingModel {
 	}
 
 	public String GetMeterReadings() {
+	//	StringBuilder  out = new StringBuilder ();
 		String output = "";
 
 		try

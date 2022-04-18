@@ -27,6 +27,15 @@ public class OutageNoticeService
 	 return noticeObj.readNotices();
 	}
 	
+	@GET
+	@Path("/{regionID}")
+	@Produces(MediaType.TEXT_PLAIN)
+	public String readNoticesInRegion(@PathParam("regionID") String regionID)
+	{
+		return noticeObj.readNoticesInRegion(regionID); 
+	}
+	
+		
 	@POST
 	@Path("/")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
