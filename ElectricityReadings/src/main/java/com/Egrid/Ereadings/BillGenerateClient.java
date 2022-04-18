@@ -1,35 +1,35 @@
 package com.Egrid.Ereadings;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
 
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.WebResource;
 
 public class BillGenerateClient {
-	private double Units;
 	private static String baseURI = "http://localhost:8080/ElectricityTariffPlan/webapi/Plans/E001";
 
 	static String testGet() {
 
 		WebResource resource = getWebResource();
-		String output = resource.get(String.class);
+	
 
-		return output;
+		return  resource.get(String.class);
 
 	}
 
 	static WebResource getWebResource() {
 		Client client = Client.create();
 
-		WebResource resource = client.resource(baseURI);
+	
 
-		return resource;
+		return client.resource(baseURI);
 	}
 
 	public String read(int i) {
+		// change this lile 
+		if (i == 1) {
+			baseURI = "http://localhost:8080/ElectricityTariffPlan/webapi/Plans/E001";
+
+		}
 		if (i == 2) {
 			baseURI = "http://localhost:8080/ElectricityTariffPlan/webapi/Plans/E002";
 
