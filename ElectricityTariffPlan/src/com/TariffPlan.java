@@ -12,6 +12,7 @@ public class TariffPlan {
 		this.con = new DbConnection().getConnection();
 	}
 
+// Insert new record to tariff plan
 	public String CreateTariffPlan(String ET_ID, String Tarrif_Block, double Unit_Rate, double Fixed_Charge) {
 
 		String output = "";
@@ -41,6 +42,7 @@ public class TariffPlan {
 		return output;
 
 	}
+	// Delete a record from tariff plan by it's ET_ID
 
 	public String DeleteTariffPlan(String ID) {
 		String output = "";
@@ -66,6 +68,7 @@ public class TariffPlan {
 		return output;
 	}
 
+	// Update Existing record in Tariff plan table
 	public String UpdateTariffPlan(String eT_ID, String tariff_Block, double ur, double fc) {
 		String output = "";
 		try {
@@ -93,7 +96,7 @@ public class TariffPlan {
 		}
 		return output;
 	}
-
+// retrive Fixed charge and Unit rate By ET_ID 
 	public double[] GetTariffPlan(String id) {
 		double[] arr = new double[2];
 		arr[0] = 0;
@@ -111,6 +114,7 @@ public class TariffPlan {
 			while (rs.next()) {
 				double Fixed_Charge = rs.getDouble("Fixed_Charge");
 				double Unit_Rate = rs.getDouble("Unit_Rate");
+				// assigning values to array
 				arr[0] = Fixed_Charge;
 				arr[1] = Unit_Rate;
 			}

@@ -18,7 +18,7 @@ import org.jsoup.parser.Parser;
 @Path("/Plans")
 public class TariffPlanService {
 	TariffPlan Tobj = new TariffPlan();
-
+// API For Inter-connection for meter reading service
 	@GET
 	@Path("/{id}")
 	@Produces(MediaType.TEXT_PLAIN)
@@ -34,7 +34,7 @@ public class TariffPlanService {
 	@Produces(MediaType.TEXT_PLAIN)
 	public String CreateTariffPlan(@FormParam("ET_ID") String ET_ID, @FormParam("Tariff_Block") String Tariff_Block,
 			@FormParam("Unit_Rate") double Unit_Rate, @FormParam("Fixed_Charge") double Fixed_Charge) {
-
+		   // round to two decimal digits. 
 		double Ur = (double) Math.round(Unit_Rate * 100) / 100;
 		double Fc = (double) Math.round(Fixed_Charge * 100) / 100;
 
@@ -49,7 +49,7 @@ public class TariffPlanService {
 	public String DeleteTariffPlans(String XmlData) {
 		// Convert the input string to an XML document
 		Document doc = Jsoup.parse(XmlData, "", Parser.xmlParser());
-		// Read the value from the element <ID> and <MID>
+		// Read the value from the element <ID> 
 
 		String ID = doc.select("ID").text();
 
@@ -62,7 +62,7 @@ public class TariffPlanService {
 	@Produces(MediaType.TEXT_PLAIN)
 	public String UpdateTariffPlan(@FormParam("ET_ID") String ET_ID, @FormParam("Tariff_Block") String Tariff_Block,
 			@FormParam("Unit_Rate") double Unit_Rate, @FormParam("Fixed_Charge") double Fixed_Charge) {
-
+            // round to two decimal digits. 
 		double Ur = (double) Math.round(Unit_Rate * 100) / 100;
 		double Fc = (double) Math.round(Fixed_Charge * 100) / 100;
 
