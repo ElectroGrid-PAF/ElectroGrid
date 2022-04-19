@@ -49,7 +49,7 @@ public class TariffPlanService {
 	public String DeleteTariffPlans(String XmlData) {
 		// Convert the input string to an XML document
 		Document doc = Jsoup.parse(XmlData, "", Parser.xmlParser());
-		// Read the value from the element <ID> and <MID>
+		// Read the value from the element <ID> 
 
 		String ID = doc.select("ID").text();
 
