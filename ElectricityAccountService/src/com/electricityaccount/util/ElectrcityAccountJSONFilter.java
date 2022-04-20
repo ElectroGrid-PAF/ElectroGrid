@@ -3,8 +3,13 @@ package com.electricityaccount.util;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+/**
+ * ElectrcityAccountJSONFilter class handles filtering of bill json objects by its key value pairs
+ * 
+ * @author 	Gobisan, PAF_Y3.S1.WE.DS.04_113
+ * @version 1.0 Apr 2022
+ */
 
-// Used to filter bill json object by its key value pairs
 public class ElectrcityAccountJSONFilter {
 
 	JSONObject jsonObj;
