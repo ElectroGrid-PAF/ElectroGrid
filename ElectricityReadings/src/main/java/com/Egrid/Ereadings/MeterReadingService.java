@@ -32,7 +32,7 @@ import javax.ws.rs.core.MediaType;
 public class MeterReadingService {
 
 	MeterReadingModel readingObj = new MeterReadingModel();
-
+// INTER_CONNECTION With Electricity Account Service
 	@GET
 	@Path("/GetBills")
 	@Produces( MediaType.APPLICATION_JSON)

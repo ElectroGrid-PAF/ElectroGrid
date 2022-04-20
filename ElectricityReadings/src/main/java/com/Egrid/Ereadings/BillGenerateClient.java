@@ -1,6 +1,5 @@
 package com.Egrid.Ereadings;
 
-
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.WebResource;
 
@@ -10,22 +9,22 @@ public class BillGenerateClient {
 	static String testGet() {
 
 		WebResource resource = getWebResource();
-	
 
-		return  resource.get(String.class);
+		return resource.get(String.class);
 
 	}
 
 	static WebResource getWebResource() {
 		Client client = Client.create();
 
-	
-
 		return client.resource(baseURI);
 	}
 
 	public String read(int i) {
-		// change this lile 
+
+		// Assigning BaseURI to get values (Unit Rates , Fixed Charge) from the API
+
+		// change this lile
 		if (i == 1) {
 			baseURI = "http://localhost:8080/ElectricityTariffPlan/webapi/Plans/E001";
 
