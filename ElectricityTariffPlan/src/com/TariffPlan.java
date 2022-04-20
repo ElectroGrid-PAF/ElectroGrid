@@ -65,6 +65,7 @@ public class TariffPlan {
 			output = "Error while deleting the TariffPlan !!";
 			e.printStackTrace();
 		}
+
 		return output;
 	}
 
@@ -96,6 +97,7 @@ public class TariffPlan {
 		}
 		return output;
 	}
+
 // retrive Fixed charge and Unit rate By ET_ID 
 	public double[] GetTariffPlan(String id) {
 		double[] arr = new double[2];
