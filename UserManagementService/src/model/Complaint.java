@@ -55,6 +55,47 @@ public class Complaint {
 		return output; 
 	 }
 	
+	public String ViewMyComplaint (String EmailAddress) {
+		 String output = "";
+		 try {
+			 Connection con = connect();
+			 if (con == null) {
+				 return "Error while connecting to the database when viewing complaints!"; 
+			 }
+			 
+			 String query = "SELECT * FROM complaint WHERE EmailAddress='"+EmailAddress+"'"; 
+			 Statement stmt = con.createStatement();
+			 ResultSet rs = stmt.executeQuery(query);
+		 
+			 // Iterate through the rows in the result set
+			 while (rs.next()) {
+				 String ComplaintID = Integer.toString(rs.getInt("ComplaintID"));
+				 String SenderName = rs.getString("SenderName");
+				 String RecipientDept = rs.getString("RecipientDept");
+				 String emailAddress = rs.getString("EmailAddress");
+				 String Subject = rs.getString("Subject");
+				 String Complaint = rs.getString("Complaint");
+				 String Response = rs.getString("Response");
+		 
+				 output += "<p>" + "User ID: " + ComplaintID + "</p>";
+				 output += "<p>" + "Name: " + SenderName + "</p>";
+				 output += "<p>" + "Email: " + RecipientDept + "</p>";
+				 output += "<p>" + "Address: " + emailAddress + "</p>";
+				 output += "<p>" + "Phone Number: " + Subject + "</p>";
+				 output += "<p>" + "Username: " + Complaint + "</p>";
+				 output += "<p>" + "Password: " + Response + "</p>";
+			 }
+		 
+			 con.close();
+		 }
+		 catch (Exception e) {
+			 output = "Error in loading your complaints!";
+			 System.err.println(e.getMessage());
+		 }
+		 return output;
+	 } 
+	 
+	
 	 //Read all complaints --> Update word doc function it says update complaint
 	 public String ViewAllComplaints() { 
 		 String output = ""; 

@@ -7,6 +7,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
@@ -19,7 +20,7 @@ import com.google.gson.JsonParser;
 
 import model.Complaint;
 
-@Path("/Complaint") 
+@Path("/Complaint/secured") 
 
 public class ComplaintService {
 	 Complaint complaint = new Complaint();
@@ -39,6 +40,14 @@ public class ComplaintService {
 			  String output = complaint.MakeComplaint(SenderName, RecipientDept, EmailAddress, Subject, Complaint, Response);
 			  return output;
 	 }
+	 
+	 @GET
+	 @Path("/myComplaints/{EmailAddress}")
+	 @Produces(MediaType.TEXT_HTML)
+	 public String MyProfile (@PathParam("EmailAddress") String EmailAddress) {
+		 return complaint.ViewMyComplaint(EmailAddress);
+	 }
+		
 	 
 	 @GET
 	 @Path("/viewComplaints/") 

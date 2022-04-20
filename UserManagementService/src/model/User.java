@@ -129,7 +129,7 @@ public class User {
 		 return output;
 	 } 
 	 
-	 public String DeleteAccount (String UserID) {
+	 public String DeleteAccount (String Username) {
 		 String output = "";
 		 try {
 			 Connection con = connect();
@@ -138,11 +138,11 @@ public class User {
 			 }
 			 
 			 //Create a prepared statement
-			 String query = "DELETE FROM user WHERE UserID = ?";
+			 String query = "DELETE FROM user WHERE Username = ?";
 			 PreparedStatement preparedStmt = con.prepareStatement(query);
 			 
 			 // binding values
-			 preparedStmt.setInt(1, Integer.parseInt(UserID));
+			 preparedStmt.setString(1, Username);
 	 
 			 // execute the statement
 			 preparedStmt.execute();
@@ -155,8 +155,6 @@ public class User {
 		 }
 		 return output;
 	 } 
-	 
-	 
 	 
     		
 }

@@ -39,14 +39,14 @@ public class UserService {
 	}
 	
 	@GET
-	@Path("/profile/{Username}")
+	@Path("/secured/profile/{Username}")
 	@Produces(MediaType.TEXT_HTML)
 	public String MyProfile (@PathParam("Username") String Username) {
 		return user.MyProfile(Username);
 	}
 	
 	@PUT
-	@Path("/editProfile/")
+	@Path("/secured/editProfile/")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)
 	public String EditProfile (String userData) { 
@@ -62,14 +62,14 @@ public class UserService {
 		String PhoneNo = userObject.get("PhoneNo").getAsString(); 
 		String Username = userObject.get("Username").getAsString(); 
 		String Password = userObject.get("Password").getAsString(); 
-		String UserType = userObject.get("UserType").getAsString(); 
+		String UserType = userObject.get("UserType"). getAsString(); 
 		
 		String output = user.UpdateProfile(UserID, Name, Email, Address, PhoneNo, Username, Password, UserType); 
 		return output; 
 	}
 	
 	@DELETE
-	@Path("/deleteProfile/")
+	@Path("/secured/deleteProfile/")
 	@Consumes(MediaType.APPLICATION_XML)
 	@Produces(MediaType.TEXT_PLAIN) 
 	public String DeleteProfile (String UserData) { 
@@ -82,4 +82,5 @@ public class UserService {
 		String output = user.DeleteAccount(UserID); 
 		return output; 
 	}
+	
 }
