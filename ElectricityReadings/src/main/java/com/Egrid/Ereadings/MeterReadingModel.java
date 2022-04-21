@@ -268,7 +268,9 @@ public class MeterReadingModel {
 			
 
 			String OBJECT = "";
+			//IF-ELSE Condition Used to get Correct Values from Tariff Plan Service
 			if (Units_Consumed <= 100) {
+				//Passing parameter is ET_ID Of Tariffplan Service 
 				 OBJECT = BillObj.read(1);
 		
 			}
