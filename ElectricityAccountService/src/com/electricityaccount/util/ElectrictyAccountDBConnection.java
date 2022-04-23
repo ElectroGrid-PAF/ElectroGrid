@@ -16,7 +16,7 @@ public final class ElectrictyAccountDBConnection {
 	private static ElectrictyAccountDBConnection dbConnection;
 	private static String jdbcURL = "jdbc:mysql://localhost:3306/ElectricityAccountDB?useSSL=false";
 	private static String jdbcUsername =  "root";
-	private static String jdbcPassword = "gobisql123";
+	private static String jdbcPassword = "";
 
 	/**
 	 * 
