@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 23, 2022 at 08:18 PM
+-- Generation Time: Apr 25, 2022 at 05:51 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.4
 
@@ -38,6 +38,8 @@ INSERT INTO `electricity_bills` (`Account_ID`, `Invoice_No`, `Bill_Amount`, `Uni
 ('1234', 'INV2022-02-12B1234M002', 25300, 200, '2022-02-12'),
 ('2345', 'INV2042-03-04B2345M002', 34925, 230.5, '2042-03-04'),
 ('2346', 'INV2022-03-10B2346M003', 72400, 400, '2022-03-10'),
+('2347', 'INV2022-01-04B2347M003', 120600, 600, '2022-01-04'),
+('2349', 'INV2022-01-28B2349M001', 10600, 500, '2022-01-28'),
 ('5424', 'INV2022-02-12B5424M001', 54421.6, 300.12, '2022-02-12');
 
 -- --------------------------------------------------------
@@ -63,6 +65,8 @@ INSERT INTO `meterreadings` (`Account_ID`, `Last_Reading`, `New_Reading`, `Revie
 ('1234', 400.12, 600.12, 'SANJAY', '2022-02-12', 'M002'),
 ('2345', 400, 700, 'SANJAY', '2022-03-14', 'M002'),
 ('2346', 400, 800, 'SANJAY', '2022-03-10', 'M003'),
+('2347', 400, 1000, 'SANJAY', '2022-01-04', 'M003'),
+('2349', 100, 600, 'SANJAY', '2022-01-28', 'M001'),
 ('5424', 300, 600.12, 'SANJAY', '2022-02-12', 'M001'),
 ('5424', 600.12, 900.4, 'SANJAY', '2022-03-12', 'M002');
 
@@ -80,8 +84,5 @@ ALTER TABLE `electricity_bills`
 -- Indexes for table `meterreadings`
 --
 ALTER TABLE `meterreadings`
-  ADD PRIMARY KEY (`Account_ID`,`Meter_ID`),
-  ADD UNIQUE KEY `Account_ID` (`Account_ID`,`Last_Reading`),
-  ADD UNIQUE KEY `Account_ID_2` (`Account_ID`,`Last_Reading`),
-  ADD UNIQUE KEY `Account_ID_3` (`Account_ID`,`Last_Reading`);
+  ADD PRIMARY KEY (`Account_ID`,`Meter_ID`);
 COMMIT;
