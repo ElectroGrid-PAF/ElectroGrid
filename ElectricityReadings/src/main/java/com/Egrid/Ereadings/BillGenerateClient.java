@@ -23,28 +23,8 @@ public class BillGenerateClient {
 	public String read(int i) {
 
 		// Assigning BaseURI to get values (Unit Rates , Fixed Charge) from the API
+		baseURI = "http://localhost:8080/ElectricityTariffPlan/webapi/Plans/E00"+i;
 
-		// change this lile
-		if (i == 1) {
-			baseURI = "http://localhost:8080/ElectricityTariffPlan/webapi/Plans/E001";
-
-		}
-		if (i == 2) {
-			baseURI = "http://localhost:8080/ElectricityTariffPlan/webapi/Plans/E002";
-
-		}
-		if (i == 3) {
-			baseURI = "http://localhost:8080/ElectricityTariffPlan/webapi/Plans/E003";
-
-		}
-		if (i == 4) {
-			baseURI = "http://localhost:8080/ElectricityTariffPlan/webapi/Plans/E004";
-
-		}
-		if (i == 5) {
-			baseURI = "http://localhost:8080/ElectricityTariffPlan/webapi/Plans/E005";
-
-		}
 		return testGet();
 
 	}
